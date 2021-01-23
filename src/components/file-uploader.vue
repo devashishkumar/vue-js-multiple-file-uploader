@@ -15,16 +15,16 @@
       class="btn btn-primary btn-sm afu-select-btn"
       v-on:click="triggerFilesControl()"
     >
-      Select Files
+      Select Files To Upload
     </button>
-    <button
+    <!-- <button
       v-if="allowedFiles.length > 0"
       class="btn btn-info btn-sm resetBtn afu-reset-btn"
-      v-on:click="resetFileUpload()"
+      v-on:click="resetFiles()"
     >
       Reset
-    </button>
-    <p class="constraints-info afu-constraints-info">
+    </button> -->
+    <p class="constraints-info afu-constraints-info" style="font-style: italic;">
       ({{ config.formatsAllowed }}) Size Limit: {{ config.maxSize }} MB
     </p>
 
@@ -46,7 +46,7 @@
           type="button"
           class="close"
           aria-label="Close"
-          v-on:click="removeRecord(index)"
+          v-on:click="removeValidFiles(index)"
         >
           <span aria-hidden="true">&times;</span>
         </button>
@@ -91,12 +91,22 @@ import { Options, Vue } from "vue-class-component";
     multiple: false,
   },
   created() {
-    this.loadData();
     this.divId = this.generateDynamicString(8);
   },
   methods: {
-    removeRecord(index: any) {
-      this.allowedFiles.splice(index, 1);
+    removeValidFiles(index: any) {
+      if (index > -1) {
+        this.allowedFiles.splice(index, 1);
+      }
+      this.$emit("filesEmitter", {
+        validFiles: this.allowedFiles,
+        invalidFiles: this.notAllowedFiles,
+      });
+    },
+    removeInvalidFiles(index: any) {
+      if (index > -1) {
+        this.notAllowedFiles.splice(index, 1);
+      }
       this.$emit("filesEmitter", {
         validFiles: this.allowedFiles,
         invalidFiles: this.notAllowedFiles,
@@ -120,10 +130,7 @@ import { Options, Vue } from "vue-class-component";
       }
       return result;
     },
-    loadData() {
-      return "test";
-    },
-    resetFileUpload() {
+    resetFiles() {
       this.allowedFiles = [];
       this.notAllowedFiles = [];
       this.$emit("filesEmitter", {
@@ -208,10 +215,10 @@ import { Options, Vue } from "vue-class-component";
       })
         .then((response) => response.json())
         .then((result) => {
-          this.$emit("fileUploadEmitter", { succes: result });
+          this.$emit("fileUploadEmitter", { success: true, response: result });
         })
         .catch((error) => {
-          this.$emit("fileUploadEmitter", { error: error });
+          this.$emit("fileUploadEmitter", { success: false, response: error });
         });
     },
   },

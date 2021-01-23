@@ -9,6 +9,14 @@
       @fileUploadEmitter="fileUploadHandler($event)"
       @filesEmitter="handleFiles($event)"
     />
+
+    <button
+      v-if="files.length > 0"
+      class="btn btn-info btn-sm resetBtn afu-reset-btn"
+      v-on:click="fileUpload()"
+    >
+      Upload Files
+    </button>
   </div>
 </template>
 
@@ -23,9 +31,8 @@ import FileUploader from "@/components/file-uploader.vue"; // @ is an alias to /
   },
   data() {
     return {
+      files: [],
       config: {
-        isProgressBar: true,
-        resetButton: true,
         maxSize: 10,
         uploadConfig: {
           url: "test url",
@@ -34,7 +41,7 @@ import FileUploader from "@/components/file-uploader.vue"; // @ is an alias to /
         },
         formatsAllowed: ".jpg, .png, .mp4",
         multipleUpload: true,
-      },
+      }
     };
   },
   methods: {
@@ -44,8 +51,11 @@ import FileUploader from "@/components/file-uploader.vue"; // @ is an alias to /
     handleFiles: function (data: any) {
       console.log(data, "34");
       console.log(this.$refs.fileUploader);
-      // this.$refs.fileUploader.fileUpload();
+      this.files = data.validFiles;
     },
+    fileUpload: function() {
+      console.log(this.$refs.fileUploader.fileUpload());
+    }
   },
 })
 export default class Home extends Vue {}
