@@ -2,7 +2,7 @@
   "name": "vue-file-upload-library",
   "version": "1.0.0",
   "private": false,
-  "main": "./dist/file-uploader.js",
+  "main": "./dist/vue-file-upload-library.js",
   "files": [
     "dist/*",
     "src/*",
@@ -15,7 +15,7 @@
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
-    "build-bundle": "vue-cli-service build --target lib --name google-maps-vue-library ./src/components/index.js"
+    "build-bundle": "vue-cli-service build --target lib --name vue-file-upload-library ./src/components/index.js"
   },
   "dependencies": {
     "core-js": "^3.6.5",
