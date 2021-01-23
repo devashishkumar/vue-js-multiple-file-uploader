@@ -1,6 +1,6 @@
 {
   "name": "vue-file-upload-library",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "private": false,
   "main": "./dist/vue-file-upload-library.js",
   "files": [
@@ -33,7 +33,9 @@
     "Vue JS 3 multiple file upload",
     "multiple file upload Vue JS 3",
     "Vue JS multiple file upload",
-    "multiple file upload Vue JS"
+    "multiple file upload Vue JS",
+    "Vue JS file upload",
+    "file upload Vue JS"
   ],
   "license": "MIT",
   "devDependencies": {
