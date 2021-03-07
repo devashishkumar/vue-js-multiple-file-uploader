@@ -1,15 +1,15 @@
-import { createApp } from "vue";
+import Vue, { createApp } from "vue";
 import App from "./App.vue";
 import router from "./router";
 import axios from 'axios'
 
 axios.defaults.baseURL = 'https://api.covid19india.org'
 axios.defaults.headers = {
-  'Authorization': 'Bearer' + ' your token',
+  // 'Authorization': 'Bearer' + ' your token',
   "Content-Type": "application/json",
   };
-axios.defaults.withCredentials = true;
-axios.defaults.timeout = 1000;
+axios.defaults.withCredentials = false;
+axios.defaults.timeout = 200000;
 axios.defaults.maxContentLength = 100000;
 axios.defaults.maxBodyLength = 100000;
 axios.defaults.proxy = {
@@ -24,7 +24,7 @@ axios.defaults.proxy = {
 axios.defaults.validateStatus = function (status) {
   return status >= 200 && status < 300;
 };
-
+// window.axios = axios;
 
 createApp(App)
   .use(router)

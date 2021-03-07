@@ -17,7 +17,6 @@
     >
       Upload Files
     </button> -->
-
     <input type="text" ref="input" />
 
     <button
@@ -46,6 +45,7 @@ import axios from "axios";
   },
   data() {
     return {
+      apiData: {},
       files: [],
       config: {
         maxSize: 10,
@@ -60,29 +60,29 @@ import axios from "axios";
     };
   },
   created() {
-    // .style.backgroundColor = 'green'
     axios
-      .get("/users/allusers")
-      .then(function (response) {
+      .get("/state_district_wise.json")
+      .then((response) => {
         console.log(response);
+        this.apiData = response.data;
       })
-      .catch(function (error) {
+      .catch((error) => {
         console.log(error);
       })
-      .then(function () {
+      .then( () => {
         // execute always
       });
-    setTimeout(() => {
-      console.log(this.$refs);
-      // this.$refs.block.style.backgroundColor = 'yellow';
-      const paras = this.$refs.block.querySelectorAll("p");
-      if (paras.length > 0) {
-        paras.forEach((e: any, index: number) => {
-          e.innerText = `${e.innerText} ${index}`;
-          e.style.color = "green";
-        });
-      }
-    }, 1000);
+    // setTimeout(() => {
+    //   console.log(this.$refs);
+    //   // this.$refs.block.style.backgroundColor = 'yellow';
+    //   const paras = this.$refs.block.querySelectorAll("p");
+    //   if (paras.length > 0) {
+    //     paras.forEach((e: any, index: number) => {
+    //       e.innerText = `${e.innerText} ${index}`;
+    //       e.style.color = "green";
+    //     });
+    //   }
+    // }, 1000);
   },
   methods: {
     fileUploadHandler(data: any) {
